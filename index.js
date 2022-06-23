@@ -3,36 +3,30 @@
  * @param {import('probot').Probot} app
  */
 module.exports = (app) => {
-  // Your code here
   app.log.info('Yay, the app was loaded!');
 
-  app.on('issues.opened', async (context) => {
-    // const issueComment = context.issue({
-    //   body: 'Thanks for opening this issue!',
-    // });
-    // return context.octokit.issues.createComment(issueComment);
-    const issue = context.payload.issue;
+  // app.on('issues.opened', async (context) => {
+  //   const issue = context.payload.issue;
 
-    const user = issue.user.login;
+  //   const user = issue.user.login;
 
-    const message = `Rahmat @${user}. Bu manager bot. Men sizning yuborgan issuega daraja beraman.`;
+  //   const message = `Rahmat @${user}. Bu manager bot. Men sizning yuborgan issuega daraja beraman.`;
 
-    const params = context.issue({ body: message });
+  //   const params = context.issue({ body: message });
 
-    if (
-      context.payload.issue.author_association === 'OWNER' ||
-      context.payload.issue.author_association === 'CONTRIBUTOR'
-    ) {
-      commands(app, 'label', (context, command) => {
-        const labels = command.arguments.split(/, */);
-        return context.github.issues.addLabels(context.issue({ labels }));
-      });
-    }
+  //   if (
+  //     context.payload.issue.author_association === 'OWNER' ||
+  //     context.payload.issue.author_association === 'CONTRIBUTOR'
+  //   ) {
+  //     commands(app, 'label', (context, command) => {
+  //       const labels = command.arguments.split(/, */);
+  //       return context.github.issues.addLabels(context.issue({ labels }));
+  //     });
+  //   }
 
-    return context.github.issues.createComment(params);
-  });
+  //   return context.github.issues.createComment(params);
+  // });
 
-  // sends welcome comment to 'new issue and new contributor' app.on('issues.opened', async context => {/
   app.on('issues.opened', async (context) => {
     const res = await context.github.issues.listForRepo(
       context.repo({
